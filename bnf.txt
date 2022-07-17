@@ -1,0 +1,81 @@
+#==============================================================================
+# The BNF definition of the programming language STEP. For the token
+# definition, see tokens.txt.
+#==============================================================================
+
+#------------------------------------------------------------------------------
+# expression
+#------------------------------------------------------------------------------
+
+expression_identifier ::= TOKEN_IDENTIFIER
+
+expression_number ::= TOKEN_NUMBER
+
+expression_string ::= TOKEN_STRING
+
+expression_none ::= TOKEN_NONE
+
+expression_list ::= '[' [ expression ( ',' expression )* ] ']'
+
+expression_parenthesis ::= '(' expression ')'
+
+expression_atom ::= expression_identifier | expression_number |
+                    expression_string | expression_none |
+                    expression_list | expression_parenthesis
+
+expression_primary ::= expression_atom ( '[' expression ']' |
+                       '(' [ expression ( ',' expression )* ] ')' )*
+
+expression_unary ::= expression_primary | '-' expression_unary
+
+expression_multiply ::= expression_unary (
+                        ( '*' | '/' | '%' ) expression_unary )*
+
+expression_plus ::= expression_multiply (
+                    ( '+' | '-' ) expression_multiply )*
+
+expression_compare ::= expression_plus [
+                       ( '<' | '>' | '<=' | '>=' | '==' | '!=' )
+                       expression_plus ]
+
+expression_andor ::= expression_compare (
+                     ( 'and' | 'or' ) expression_compare )*
+
+expression_assignment ::= expression_andor [ ( '=' expression_andor ) ]
+
+expression ::= expression_assignment
+
+#------------------------------------------------------------------------------
+# statement
+#------------------------------------------------------------------------------
+
+statement_none ::= ';'
+
+statement_expression ::= expression ';'
+
+statement_if ::= 'if' '(' expression ')' '{' statement* '}'
+                 [ 'else' '{' statement* '}' ]
+
+statement_while ::= 'while' '(' expression ')' '{' statement* '}'
+
+statement_break ::= 'break' ';'
+
+statement_continue ::= 'continue' ';'
+
+# Optional
+statement_return ::= 'return' [ expression ] ';'
+
+# Optional
+statement_function ::= 'def' expression_identifier '(' [ expression_identifier
+                       ( ',' expression_identifier )* ] ')' '{' statement* '}'
+
+statement ::= statement_none | statement_expression | statement_if |
+              statement_while | statement_break | statement_continue |
+              statement_return | statement_function
+
+#------------------------------------------------------------------------------
+# program
+#------------------------------------------------------------------------------
+
+program ::= statement*
+

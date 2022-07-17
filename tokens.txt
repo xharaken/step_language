@@ -1,0 +1,52 @@
+#==============================================================================
+# Tokens of the programming language STEP.
+#
+# Note:
+# - Whitespaces (' ', '\t' and '\n') are ignored and not tokens.
+# - A comment starts with '#' that is not part of a string, and ends at
+#   the end of the line ('\n'). Comments are ignored and not tokens.
+#==============================================================================
+
+
+digit ::= '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9'
+alphabet ::= 'a' | 'b' | ... | 'z' | 'A' | 'B' | ... | 'Z'
+character ::= an ASCII character except '"'
+
+TOKEN_IDENTIFIER ::= ( '_' | alphabet ) ( '_' | alphabet | digit )*
+TOKEN_STRING ::= '"' ( character )* '"'
+
+# Note: This number definition is overly simplified. This accepts '0012'
+# (which means 12). This does not accept '.12'. For simplicity, we adopt
+# this definition.
+TOKEN_NUMBER ::= digit ( digit )* [ '.' ( digit )* ]
+
+TOKEN_LEFT_PARENTHESIS ::= '('
+TOKEN_RIGHT_PARENTHESIS ::= ')'
+TOKEN_LEFT_BRACKET ::= '['
+TOKEN_RIGHT_BRACKET ::= ']'
+TOKEN_LEFT_BRACE ::= '{'
+TOKEN_RIGHT_BRACE ::= '}'
+TOKEN_MULTIPLY ::= '*'
+TOKEN_DIVIDE ::= '/'
+TOKEN_MOD ::= '%'
+TOKEN_PLUS ::= '+'
+TOKEN_MINUS ::= '-'
+TOKEN_LT ::= '<'
+TOKEN_GT ::= '>'
+TOKEN_LE ::= '<='
+TOKEN_GE ::= '>='
+TOKEN_EQEQ ::= '=='
+TOKEN_NOTEQ ::= '!='
+TOKEN_EQ ::= '='
+TOKEN_COMMA ::= ','
+TOKEN_SEMICOLON ::= ';'
+TOKEN_AND ::= 'and'
+TOKEN_OR ::= 'or'
+TOKEN_IF ::= 'if'
+TOKEN_ELSE ::= 'else'
+TOKEN_WHILE ::= 'while'
+TOKEN_RETURN ::= 'return'
+TOKEN_BREAK ::= 'break'
+TOKEN_CONTINUE ::= 'continue'
+TOKEN_DEF ::= 'def'
+TOKEN_NONE ::= 'None'

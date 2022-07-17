@@ -1,0 +1,97 @@
+#------------------------------------------------------------------------------
+# Advanced unittests. If your interpreter supports functions, it is expected
+# to pass all the test cases.
+#------------------------------------------------------------------------------
+
+def f1() {
+    return 1;
+}
+assert(f1() == 1);
+
+def f2() {
+    return;
+}
+assert(f2() == None);
+
+def f3() {
+    return "abc";
+}
+assert(f3() == "abc");
+
+def f4() {
+    return [1, 2];
+}
+assert(f4() == [1, 2]);
+
+def f5() {
+    return f4;
+}
+assert(f5() == f4);
+
+def f6() {
+    return print;
+}
+assert(f6() == print);
+
+def f7() {
+    return 100;
+}
+f8 = f7;
+assert(f8() == 100);
+
+def f9() {
+    return [1, [2, [f8]]];
+}
+assert(f9() == [1, [2, [f8]]]);
+assert(f9()[0] == 1);
+assert(f9()[1][0] == 2);
+assert(f9()[1][1][0] == f8);
+assert(f9()[1][1][0]() == 100);
+
+def f10(a) {
+    return a;
+}
+assert(f10(1) == 1);
+
+def f11(a, b) {
+    return a + b;
+}
+assert(f11(1, 2) == 3);
+
+def f12(a, b, c, d) {
+    return a * b + c % d;
+}
+assert(f12(2, 3, 4, 5) == 10);
+
+f13 = int;
+assert(f13("1234") == 1234);
+
+def f14(a) {
+    i = 0;
+    while (i < 10) {
+        if (i == a) {
+            return i;
+        }
+        i = i + 1;
+    }
+    return 1000;
+}
+assert(f14(0) == 0);
+assert(f14(9) == 9);
+assert(f14(10) == 1000);
+
+def f15(a, b) {
+    if (a % b == 0) {
+        return 100;
+    } else {
+        if (a % b == 1) {
+            return 200;
+        } else {
+            return 300;
+        }
+    }
+}
+assert(f15(7, 7) == 100);
+assert(f15(7, 6) == 200);
+assert(f15(7, 5) == 300);
+

@@ -1,0 +1,52 @@
+#------------------------------------------------------------------------------
+# Matrix multiplication
+#------------------------------------------------------------------------------
+
+N = 32;
+a = [];
+b = [];
+c = [];
+
+# Initialization.
+i = 0;
+while (i < N) {
+    append(a, [1.0] * N);
+    append(b, [1.0] * N);
+    append(c, [0.0] * N);
+    i = i + 1;
+}
+
+# Calculate c = a * b.
+i = 0;
+while (i < N) {
+    j = 0;
+    while (j < N) {
+        k = 0;
+        while (k < N) {
+            c[i][k] = c[i][k] + a[i][j] * b[j][k];
+            k = k + 1;
+        }
+        j = j + 1;
+    }
+    i = i + 1;
+}
+
+# Check if the sum of all entries is N^3.
+sum = 0;
+i = 0;
+while (i < N) {
+    j = 0;
+    while (j < N) {
+        sum = sum + c[i][j];
+        j = j + 1;
+    }
+    i = i + 1;
+}
+if (sum == N * N * N) {
+    print("The sum of all entries are " + str(sum) +
+    " and correctly calculated.");
+} else {
+    print("The sum of all entries were expected to be " + N * N * N +
+          " but was " + str(sum) + ".");
+}
+
